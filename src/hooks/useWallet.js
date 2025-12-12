@@ -121,9 +121,18 @@ const useWalletStore = create((set, get) => ({
       const balanceWei = await rpcProvider.getBalance(address);
       const bnbBalance = ethers.formatEther(balanceWei);
       // ✅ Get USDT balance
-      const usdt = new ethers.Contract(USDT_ADDRESS, ERC20_ABI, provider);
-      const decimals = await usdt.decimals();
-      const usdtRaw = await usdt.balanceOf(address);
+      // const usdt = new ethers.Contract(USDT_ADDRESS, ERC20_ABI, provider);
+      // const decimals = await usdt.decimals();
+      // const usdtRaw = await usdt.balanceOf(address);
+      // const usdtBalance = ethers.formatUnits(usdtRaw, decimals);
+      const usdtPublic = new ethers.Contract(
+        USDT_ADDRESS,
+        ERC20_ABI,
+        rpcProvider
+      );
+
+      const decimals = await usdtPublic.decimals();
+      const usdtRaw = await usdtPublic.balanceOf(address);
       const usdtBalance = ethers.formatUnits(usdtRaw, decimals);
       console.log("Balance : ", bnbBalance);
       console.log("USDT Balance : ", usdtBalance);
