@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Home() {
   return (
     <>
@@ -15,18 +17,15 @@ export default function Home() {
         </div>
         <div className="custom-container">
           <div className="servicemen-onboarding-details">
-            <h4>Get paid by just one click</h4>
-            <h5>Now manage all your service & shop by just one click.</h5>
+            <h4>Nexus Global Traders</h4>
+            <h5>
+              With Nexus Global Traders, smart earning starts today. Your dreams
+              deserve progress.
+            </h5>
             <div className="mt-3">
-              <a href="login.html" className="btn theme-btn w-100">
-                Login as provider
-              </a>
-              <a
-                href="https://themes.pixelstrap.com/pwa/fixit/template/servicemen-app/login.html"
-                className="btn theme-btn bg-transparent theme-color w-100"
-              >
-                Login as servicemen
-              </a>
+              <Link to="/sign" className="btn theme-btn w-100">
+                Launch App
+              </Link>
             </div>
           </div>
         </div>
