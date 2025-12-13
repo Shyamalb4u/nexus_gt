@@ -336,7 +336,7 @@ export default function Sign() {
                 <div className="empty-page no-connection">
                   <img
                     className="img-fluid"
-                    src="https://themes.pixelstrap.com/pwa/fixit/assets/images/no-connection.svg"
+                    src="/wallets.png"
                     alt="no-connection"
                   />
 
