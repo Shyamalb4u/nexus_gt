@@ -1,9 +1,9 @@
-export default function Footer() {
+export default function Footer({ activeTab, setActiveTab }) {
   return (
     <div className="navbar-menu">
       <ul>
-        <li className="active">
-          <a href="home.html">
+        <li className={activeTab === "home" ? "active" : ""}>
+          <a onClick={() => setActiveTab("home")}>
             <div className="icon">
               <img
                 className="unactive"
@@ -20,8 +20,8 @@ export default function Footer() {
           </a>
         </li>
 
-        <li>
-          <a href="booking.html">
+        <li className={activeTab === "referral" ? "active" : ""}>
+          <a onClick={() => setActiveTab("referral")}>
             <div className="icon">
               <img
                 className="unactive"
@@ -34,18 +34,23 @@ export default function Footer() {
                 alt="booking"
               />
             </div>
-            <h5>Booking</h5>
+            <h5>Referral</h5>
           </a>
         </li>
 
         <li>
-          <a href="#add-modal" className="scanner-btn" data-bs-toggle="modal">
-            <i className="iconsax icon-btn" data-icon="add"></i>
+          <a onClick={() => setActiveTab("packages")} className="scanner-btn">
+            <img
+              className="active"
+              style={{ color: "white" }}
+              src="https://themes.pixelstrap.com/pwa/fixit/assets/images/svg/wallet-open.svg"
+              alt="p8"
+            />
           </a>
         </li>
 
-        <li>
-          <a href="wallet.html">
+        <li className={activeTab === "wallet" ? "active" : ""}>
+          <a onClick={() => setActiveTab("wallet")}>
             <div className="icon">
               <img
                 className="unactive"
@@ -62,8 +67,8 @@ export default function Footer() {
           </a>
         </li>
 
-        <li>
-          <a href="profile.html">
+        <li className={activeTab === "community" ? "active" : ""}>
+          <a onClick={() => setActiveTab("community")}>
             <div className="icon">
               <img
                 className="unactive"
@@ -76,7 +81,7 @@ export default function Footer() {
                 alt="profile"
               />
             </div>
-            <h5>Profile</h5>
+            <h5>Community</h5>
           </a>
         </li>
       </ul>

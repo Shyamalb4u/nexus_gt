@@ -4,11 +4,15 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import AccountHome from "./AccountHome";
 import useWalletStore from "../hooks/useWallet";
+import Referral from "./Referral";
+import Community from "./Community";
+import MyPackages from "./MyPackages";
 export default function Wallet() {
   const navigate = useNavigate();
   const api_link = process.env.REACT_APP_API_URL;
   const [page, setPage] = useState(0);
   const [flash, setFlash] = useState("");
+  const [activeTab, setActiveTab] = useState("home");
 
   // const { fetchIncomeData } = dashboardBalance();
   const {
@@ -103,8 +107,12 @@ export default function Wallet() {
   return (
     <>
       <Header />
-      <AccountHome />
-      <Footer />
+      {activeTab === "home" && <AccountHome />}
+      {activeTab === "referral" && <Referral />}
+      {activeTab === "community" && <Community />}
+      {activeTab === "packages" && <MyPackages />}
+
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </>
   );
 }
