@@ -4,11 +4,13 @@ import dashboardBalance from "../hooks/dashboardBalance";
 import FlashMessage from "../components/FlashMessage";
 
 export default function AccountHome() {
+  const api_link = process.env.REACT_APP_API_URL;
   const { fetchIncomeData, incomeData } = dashboardBalance();
   const { address, fetchBalances, getTxStatus, usdtBalance, bnbBalance } =
     useWalletStore();
   const [flash, setFlash] = useState("");
   const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (window.init_iconsax) {
       window.init_iconsax();
@@ -26,6 +28,116 @@ export default function AccountHome() {
       console.error("Failed to copy: ", err);
     }
   };
+
+  async function onWithdraw() {
+    if (!address) {
+      return;
+    }
+    setIsLoading(true);
+    const data = await fetchIncomeData(address);
+    const balance = data[0].balance;
+    if (parseFloat(balance) > 0) {
+      const admCh = (balance * 10) / 100;
+      const net = balance - admCh;
+      //console.log(admCh, net);
+      //// First Insert into Database
+      const withdrawalUrl = api_link + "withdrawal";
+      const dataToSend = {
+        publicKey: address,
+        amount: balance,
+        txn: "Pending Txn",
+      };
+      const customHeadersTo = {
+        "Content-Type": "application/json",
+      };
+      try {
+        const result = await fetch(withdrawalUrl, {
+          method: "POST",
+          headers: customHeadersTo,
+          body: JSON.stringify(dataToSend),
+        });
+
+        if (!result.ok) {
+          setIsLoading(false);
+          setFlash("Withdrawal Failed!");
+          setIsError(true);
+          throw new Error(`HTTP error! status: ${result.status}`);
+        }
+        const reData = await result.json();
+        const withSl = reData.data[0].withSl;
+        /////// Send Real USDT
+        const signUpurl = api_link + "withdrawUsdt";
+        const data = {
+          to: address,
+          amount: net,
+        };
+        const customHeaders = {
+          "Content-Type": "application/json",
+        };
+        try {
+          const resultGet = await fetch(signUpurl, {
+            method: "POST",
+            headers: customHeaders,
+            body: JSON.stringify(data),
+          });
+
+          if (!resultGet.ok) {
+            throw new Error(`HTTP error! status: ${resultGet.status}`);
+          }
+          const reData = await resultGet.json();
+          console.log(reData.msg);
+          const msg = reData.msg;
+          if (msg === "success") {
+            const txHash = reData.txHash;
+            ///////// Database
+            const updateUrl = api_link + "withdrawal_update";
+            const updateData = {
+              withSl: withSl,
+              txn: txHash,
+            };
+            const updateHeaders = {
+              "Content-Type": "application/json",
+            };
+            try {
+              const updatResult = await fetch(updateUrl, {
+                method: "POST",
+                headers: updateHeaders,
+                body: JSON.stringify(updateData),
+              });
+              if (!updatResult.ok) {
+                throw new Error(`HTTP error! status: ${updatResult.status}`);
+              }
+              const reDatass = await updatResult.json();
+            } catch (err) {
+              console.log(err);
+              setIsLoading(false);
+              setFlash("Withdrawal Failed!");
+              setIsError(true);
+            }
+            //// End Database
+          }
+          fetchIncomeData(address);
+          fetchBalances(address);
+          setIsLoading(false);
+          setFlash("Withdrawal Success");
+          setIsError(false);
+        } catch (error) {
+          console.log(error);
+          setIsLoading(false);
+          setFlash("Withdrawal Failed!");
+          setIsError(true);
+        }
+      } catch (error) {
+        console.log("Others Error!");
+        setIsLoading(false);
+      }
+      ///////// End Of Database
+    } else {
+      setIsLoading(false);
+      setFlash("Minimum Withdrawal $10");
+      setIsError(true);
+    }
+  }
   return (
     <>
       <section className="section-lg-t-space">
@@ -41,9 +153,18 @@ export default function AccountHome() {
                 <h5>Account Balance.</h5>
                 <h4>${incomeData ? <>{incomeData[0].balance}</> : "..."}</h4>
               </div>
-              <button className="btn-sm theme-btn withdraw-btn theme-color">
-                Withdraw
-              </button>
+              {!isLoading ? (
+                <a
+                  className="btn-sm theme-btn withdraw-btn theme-color"
+                  onClick={() => onWithdraw()}
+                >
+                  Withdraw
+                </a>
+              ) : (
+                <div className="text-center">
+                  <img src="/loading.gif" alt="Loading" width={55} />
+                </div>
+              )}
             </div>
           </div>
         </div>

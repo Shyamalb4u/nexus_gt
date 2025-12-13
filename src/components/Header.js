@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useWalletStore from "../hooks/useWallet";
 
-export default function Header() {
+export default function Header({ activeTab, setActiveTab }) {
   const [name, setName] = useState("");
   const { address } = useWalletStore();
   const api_link = process.env.REACT_APP_API_URL;
@@ -73,7 +73,19 @@ export default function Header() {
         <div class="offcanvas-body">
           <ul class="profile-list">
             <li>
-              <a class="setting-box">
+              <a
+                class="setting-box"
+                onClick={() => {
+                  setActiveTab("home");
+                  const sidebar = document.getElementById("sidebar");
+                  const bsOffcanvas =
+                    window.bootstrap.Offcanvas.getInstance(sidebar);
+
+                  if (bsOffcanvas) {
+                    bsOffcanvas.hide();
+                  }
+                }}
+              >
                 <div class="setting-icon">
                   <i class="iconsax main-icon" data-icon="user-2">
                     {" "}
@@ -86,7 +98,19 @@ export default function Header() {
               </a>
             </li>
             <li>
-              <a class="setting-box">
+              <a
+                class="setting-box"
+                onClick={() => {
+                  setActiveTab("withdrawalH");
+                  const sidebar = document.getElementById("sidebar");
+                  const bsOffcanvas =
+                    window.bootstrap.Offcanvas.getInstance(sidebar);
+
+                  if (bsOffcanvas) {
+                    bsOffcanvas.hide();
+                  }
+                }}
+              >
                 <div class="setting-icon">
                   <img
                     class="img-fluid main-icon main-img"
@@ -101,7 +125,19 @@ export default function Header() {
               </a>
             </li>
             <li>
-              <a class="setting-box">
+              <a
+                class="setting-box"
+                onClick={() => {
+                  setActiveTab("home");
+                  const sidebar = document.getElementById("sidebar");
+                  const bsOffcanvas =
+                    window.bootstrap.Offcanvas.getInstance(sidebar);
+
+                  if (bsOffcanvas) {
+                    bsOffcanvas.hide();
+                  }
+                }}
+              >
                 <div class="setting-icon">
                   <img
                     class="img-fluid main-icon main-img"

@@ -7,6 +7,8 @@ import useWalletStore from "../hooks/useWallet";
 import Referral from "./Referral";
 import Community from "./Community";
 import MyPackages from "./MyPackages";
+import IncomeStatement from "./IncomeStatement";
+import WithdrawalStatement from "./WithdrawalStatement";
 export default function Wallet() {
   const navigate = useNavigate();
   const api_link = process.env.REACT_APP_API_URL;
@@ -106,11 +108,13 @@ export default function Wallet() {
   }, [address, getTxStatus]);
   return (
     <>
-      <Header />
+      <Header activeTab={activeTab} setActiveTab={setActiveTab} />
       {activeTab === "home" && <AccountHome />}
       {activeTab === "referral" && <Referral />}
       {activeTab === "community" && <Community />}
       {activeTab === "packages" && <MyPackages />}
+      {activeTab === "wallet" && <IncomeStatement />}
+      {activeTab === "withdrawalH" && <WithdrawalStatement />}
 
       <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </>
