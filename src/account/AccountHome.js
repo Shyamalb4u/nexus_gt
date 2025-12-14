@@ -36,7 +36,7 @@ export default function AccountHome() {
     setIsLoading(true);
     const data = await fetchIncomeData(address);
     const balance = data[0].balance;
-    if (parseFloat(balance) > 0) {
+    if (parseFloat(balance) >= 10) {
       const admCh = (balance * 10) / 100;
       const net = balance - admCh;
       //console.log(admCh, net);
