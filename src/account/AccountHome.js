@@ -3,7 +3,7 @@ import useWalletStore from "../hooks/useWallet";
 import dashboardBalance from "../hooks/dashboardBalance";
 import FlashMessage from "../components/FlashMessage";
 
-export default function AccountHome() {
+export default function AccountHome({ activeTab, setActiveTab }) {
   const api_link = process.env.REACT_APP_API_URL;
   const { fetchIncomeData, incomeData } = dashboardBalance();
   const { address, fetchBalances, getTxStatus, usdtBalance, bnbBalance } =
@@ -210,7 +210,10 @@ export default function AccountHome() {
             </div>
 
             <div className="col-5">
-              <a href="service-list.html" className="provider-counter-box">
+              <a
+                onClick={() => setActiveTab("roi")}
+                className="provider-counter-box"
+              >
                 <i className="iconsax counter-icon" data-icon="grid-apps"></i>
                 <div className="provider-counter-details">
                   <h6>Trading Profit</h6>
@@ -228,7 +231,10 @@ export default function AccountHome() {
             </div>
 
             <div className="col-7">
-              <a href="servicemen-list.html" className="provider-counter-box">
+              <a
+                onClick={() => setActiveTab("referralBonus")}
+                className="provider-counter-box"
+              >
                 <i className="iconsax counter-icon" data-icon="grid-apps"></i>
                 <div className="provider-counter-details">
                   <h6>Referral Bonus</h6>
@@ -243,7 +249,10 @@ export default function AccountHome() {
               </a>
             </div>
             <div className="col-7">
-              <a href="earnings.html" className="provider-counter-box">
+              <a
+                onClick={() => setActiveTab("communityBonus")}
+                className="provider-counter-box"
+              >
                 <i className="iconsax counter-icon" data-icon="grid-apps"></i>
                 <div className="provider-counter-details">
                   <h6>Community Bonus</h6>
@@ -261,7 +270,7 @@ export default function AccountHome() {
             </div>
 
             <div className="col-5">
-              <a href="booking.html" className="provider-counter-box">
+              <a className="provider-counter-box">
                 <i className="iconsax counter-icon" data-icon="grid-apps"></i>
                 <div className="provider-counter-details">
                   <h6>MFA Bonus</h6>
@@ -278,7 +287,7 @@ export default function AccountHome() {
               </a>
             </div>
             <div className="col-5">
-              <a href="service-list.html" className="provider-counter-box">
+              <a className="provider-counter-box">
                 <i className="iconsax counter-icon" data-icon="grid-apps"></i>
                 <div className="provider-counter-details">
                   <h6>One Time Bonus</h6>
@@ -294,7 +303,7 @@ export default function AccountHome() {
             </div>
 
             <div className="col-7">
-              <a href="servicemen-list.html" className="provider-counter-box">
+              <a className="provider-counter-box">
                 <i className="iconsax counter-icon" data-icon="grid-apps"></i>
                 <div className="provider-counter-details">
                   <h6>Royalty Bonus</h6>
@@ -431,12 +440,23 @@ export default function AccountHome() {
 
                   <div className="provider-content">
                     <div>
-                      <h6 className="content-color fw-medium">0xf2sf2sf...</h6>
+                      <h6 className="content-color fw-medium">
+                        {incomeData ? (
+                          <>
+                            {String(incomeData[0].powerAddress).slice(0, 10)}...
+                            {String(incomeData[0].powerName).slice(0, 10)}
+                          </>
+                        ) : (
+                          "..."
+                        )}{" "}
+                      </h6>
                       <h5 className="name fw-medium title-color mt-1">
                         Power Leg
                       </h5>
                     </div>
-                    <h6 className="fw-normal title-color ps-2">$7878</h6>
+                    <h6 className="fw-normal title-color ps-2">
+                      ${incomeData ? <>{incomeData[0].power}</> : "..."}
+                    </h6>
                   </div>
                 </li>
               </ul>
@@ -453,13 +473,15 @@ export default function AccountHome() {
                   <div className="provider-content">
                     <div>
                       <h6 className="content-color fw-medium">
-                        0xdfgdg45fgg...
+                        All except Power
                       </h6>
                       <h5 className="name fw-medium title-color mt-1">
                         Weeker Leg
                       </h5>
                     </div>
-                    <h6 className="fw-normal title-color ps-2">$1252</h6>
+                    <h6 className="fw-normal title-color ps-2">
+                      ${incomeData ? <>{incomeData[0].weaker}</> : "..."}
+                    </h6>
                   </div>
                 </li>
               </ul>

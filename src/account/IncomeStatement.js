@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import useWalletStore from "../hooks/useWallet";
 
-export default function IncomeStatement() {
+export default function IncomeStatement({ apiStr, heading }) {
   const api_link = process.env.REACT_APP_API_URL;
   const [statementData, setStatementData] = useState([]);
   const { address } = useWalletStore();
   useEffect(() => {
+    console.log(apiStr);
     async function getPackages() {
       try {
-        let url = api_link + "getIncomeStatement/" + address + "/All";
+        let url = api_link + "getIncomeStatement/" + address + "/" + apiStr;
+        console.log(url);
         const result = await fetch(url);
         const reData = await result.json();
         setStatementData(reData.data);
@@ -18,15 +20,13 @@ export default function IncomeStatement() {
       }
     }
     getPackages();
-  }, [address]);
+  }, [address, apiStr, api_link]);
   return (
     <>
       <section className=" section-b-space section-lg-t-space">
         <div className="custom-container">
           <div className="header-panel">
-            <h3 style={{ textAlign: "center", color: "white" }}>
-              Income Statement
-            </h3>
+            <h3 style={{ textAlign: "center", color: "white" }}>{heading}</h3>
           </div>
 
           <ul className="commission-details-list">
@@ -38,11 +38,17 @@ export default function IncomeStatement() {
                       <div>
                         <h5 className="fw-medium title-color">{data.FOLIO}</h5>
                         <h6 className="fw-normal content-color mt-1">
-                          {String(data.DETAILS).slice(0, 20)}....
+                          {data.DETAILS.length > 27
+                            ? String(data.DETAILS).slice(0, 27) + "..."
+                            : data.DETAILS}
                         </h6>
-                        <h6 className="fw-normal content-color mt-1">
-                          {data.DATES}
-                        </h6>
+                        {data.FOLIO !== "Level Income" ? (
+                          <h6 className="fw-normal content-color mt-1">
+                            {data.DATES}
+                          </h6>
+                        ) : (
+                          ""
+                        )}
                       </div>
                       <h6 className="booking-id">${data.CREDIT}</h6>
                     </div>

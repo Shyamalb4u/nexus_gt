@@ -56,27 +56,27 @@ export default function Header({ activeTab, setActiveTab }) {
         </div>
       </header>
       <div
-        class="offcanvas sidebar-offcanvas offcanvas-start"
-        tabindex="-1"
+        className="offcanvas sidebar-offcanvas offcanvas-start"
+        tabIndex="-1"
         id="sidebar"
       >
-        <div class="offcanvas-header sidebar-header">
-          <div class="sidebar-logo">
+        <div className="offcanvas-header sidebar-header">
+          <div className="sidebar-logo">
             <img
-              class="img-fluid logo"
+              className="img-fluid logo"
               src="../../assets/images/logo/logo.png"
               alt="logo"
             />
-            <img class="img-fluid logo-dark" src="/logo.png" alt="logo" />
+            <img className="img-fluid logo-dark" src="/logo.png" alt="logo" />
           </div>
         </div>
-        <div class="offcanvas-body">
-          <ul class="profile-list">
+        <div className="offcanvas-body">
+          <ul className="profile-list">
             <li>
               <a
-                class="setting-box"
+                className="setting-box"
                 onClick={() => {
-                  setActiveTab("home");
+                  setActiveTab("packages");
                   const sidebar = document.getElementById("sidebar");
                   const bsOffcanvas =
                     window.bootstrap.Offcanvas.getInstance(sidebar);
@@ -86,20 +86,22 @@ export default function Header({ activeTab, setActiveTab }) {
                   }
                 }}
               >
-                <div class="setting-icon">
-                  <i class="iconsax main-icon" data-icon="user-2">
-                    {" "}
-                  </i>
+                <div className="setting-icon">
+                  <img
+                    className="img-fluid main-icon main-img"
+                    src="https://themes.pixelstrap.com/pwa/fixit/assets/images/svg/provider-app.svg"
+                    alt="provider-app"
+                  />
                 </div>
-                <div class="setting-content">
+                <div className="setting-content">
                   <h5>Deposit History</h5>
-                  <i class="iconsax arrow" data-icon="chevron-right"></i>
+                  <i className="iconsax arrow" data-icon="chevron-right"></i>
                 </div>
               </a>
             </li>
             <li>
               <a
-                class="setting-box"
+                className="setting-box"
                 onClick={() => {
                   setActiveTab("withdrawalH");
                   const sidebar = document.getElementById("sidebar");
@@ -111,22 +113,22 @@ export default function Header({ activeTab, setActiveTab }) {
                   }
                 }}
               >
-                <div class="setting-icon">
+                <div className="setting-icon">
                   <img
-                    class="img-fluid main-icon main-img"
+                    className="img-fluid main-icon main-img"
                     src="https://themes.pixelstrap.com/pwa/fixit/assets/images/svg/provider-app.svg"
                     alt="provider-app"
                   />
                 </div>
-                <div class="setting-content">
+                <div className="setting-content">
                   <h5>Withdrawal History</h5>
-                  <i class="iconsax arrow" data-icon="chevron-right"></i>
+                  <i className="iconsax arrow" data-icon="chevron-right"></i>
                 </div>
               </a>
             </li>
             <li>
               <a
-                class="setting-box"
+                className="setting-box"
                 onClick={() => {
                   setActiveTab("home");
                   const sidebar = document.getElementById("sidebar");
@@ -138,16 +140,16 @@ export default function Header({ activeTab, setActiveTab }) {
                   }
                 }}
               >
-                <div class="setting-icon">
+                <div className="setting-icon">
                   <img
-                    class="img-fluid main-icon main-img"
+                    className="img-fluid main-icon main-img"
                     src="https://themes.pixelstrap.com/pwa/fixit/assets/images/svg/servicemen-app.svg"
                     alt="servicemen-app"
                   />
                 </div>
-                <div class="setting-content">
+                <div className="setting-content">
                   <h5>Achievement History</h5>
-                  <i class="iconsax arrow" data-icon="chevron-right"></i>
+                  <i className="iconsax arrow" data-icon="chevron-right"></i>
                 </div>
               </a>
             </li>

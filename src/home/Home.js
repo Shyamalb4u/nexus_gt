@@ -58,24 +58,24 @@ export default function Home() {
             professional expertise, and sustainable profit-driven solutions.”
           </p>
         </div>
-        <section class="section-b-space">
-          <div class="custom-container">
-            <div class="title">
+        <section className="section-b-space">
+          <div className="custom-container">
+            <div className="title">
               <h3>Our Associates</h3>
             </div>
 
-            <div class="row g-3">
-              <div class="col-6">
-                <div class="available-servicemen-box">
-                  <a href="servicemen-details.html" class="servicemen-img">
+            <div className="row g-3">
+              <div className="col-6">
+                <div className="available-servicemen-box">
+                  <a href="servicemen-details.html" className="servicemen-img">
                     <img
-                      class="img-fluid image w-100"
+                      className="img-fluid image w-100"
                       src="/assets/images/profile/p13.png"
                       alt="1"
                     />
                   </a>
 
-                  <div class="service-details">
+                  <div className="service-details">
                     <a href="servicemen-details.html">
                       <h5>Daniel Wong</h5>
                     </a>
@@ -89,17 +89,17 @@ export default function Home() {
                 </div>
               </div>
 
-              <div class="col-6">
-                <div class="available-servicemen-box">
-                  <a href="servicemen-details.html" class="servicemen-img">
+              <div className="col-6">
+                <div className="available-servicemen-box">
+                  <a href="servicemen-details.html" className="servicemen-img">
                     <img
-                      class="img-fluid image w-100"
+                      className="img-fluid image w-100"
                       src="/assets/images/profile/p4.png"
                       alt="2"
                     />
                   </a>
 
-                  <div class="service-details">
+                  <div className="service-details">
                     <a href="servicemen-details.html">
                       <h5>Michael Anderson</h5>
                     </a>
@@ -113,17 +113,17 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div class="col-6">
-                <div class="available-servicemen-box">
-                  <a href="servicemen-details.html" class="servicemen-img">
+              <div className="col-6">
+                <div className="available-servicemen-box">
+                  <a href="servicemen-details.html" className="servicemen-img">
                     <img
-                      class="img-fluid image w-100"
+                      className="img-fluid image w-100"
                       src="/assets/images/profile/p8.png"
                       alt="3"
                     />
                   </a>
 
-                  <div class="service-details">
+                  <div className="service-details">
                     <a href="servicemen-details.html">
                       <h5>Rajiv Malhotra</h5>
                     </a>
@@ -137,17 +137,17 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div class="col-6">
-                <div class="available-servicemen-box">
-                  <a href="servicemen-details.html" class="servicemen-img">
+              <div className="col-6">
+                <div className="available-servicemen-box">
+                  <a href="servicemen-details.html" className="servicemen-img">
                     <img
-                      class="img-fluid image w-100"
+                      className="img-fluid image w-100"
                       src="/assets/images/profile/p9.png"
                       alt="4"
                     />
                   </a>
 
-                  <div class="service-details">
+                  <div className="service-details">
                     <a href="servicemen-details.html">
                       <h5>Angela Bower</h5>
                     </a>

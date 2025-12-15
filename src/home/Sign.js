@@ -340,10 +340,9 @@ export default function Sign() {
                     alt="no-connection"
                   />
 
-                  <h2>Oops! your connection seems off...</h2>
+                  <h2>Connect Your Wallet</h2>
                   <h5 className="mt-2">
-                    Click the "Connect" button down below to check again for
-                    connection.
+                    Click the "Connect" button down below for connection.
                   </h5>
                 </div>
               </div>
@@ -372,10 +371,9 @@ export default function Sign() {
                   alt="no-connection"
                 />
 
-                <h2>Oops! your connection seems off...</h2>
+                <h2>Connect Your Wallet</h2>
                 <h5 className="mt-2">
-                  Click the "Connect" button down below to check again for
-                  connection.
+                  Click the "Connect" button down below for connection.
                 </h5>
               </div>
             </div>

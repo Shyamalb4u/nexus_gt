@@ -109,13 +109,26 @@ export default function Wallet() {
   return (
     <>
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
-      {activeTab === "home" && <AccountHome />}
+      {activeTab === "home" && (
+        <AccountHome activeTab={activeTab} setActiveTab={setActiveTab} />
+      )}
       {activeTab === "referral" && <Referral />}
       {activeTab === "community" && <Community />}
       {activeTab === "packages" && <MyPackages />}
-      {activeTab === "wallet" && <IncomeStatement />}
-      {activeTab === "withdrawalH" && <WithdrawalStatement />}
+      {activeTab === "wallet" && (
+        <IncomeStatement apiStr="All" heading="Income Statement" />
+      )}
+      {activeTab === "roi" && (
+        <IncomeStatement apiStr="ROI" heading="Trading Profit" />
+      )}
+      {activeTab === "referralBonus" && (
+        <IncomeStatement apiStr="Direct" heading="Referral Bonus" />
+      )}
+      {activeTab === "communityBonus" && (
+        <IncomeStatement apiStr="Level" heading="Community Bonus" />
+      )}
 
+      {activeTab === "withdrawalH" && <WithdrawalStatement />}
       <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </>
   );
