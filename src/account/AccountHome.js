@@ -173,7 +173,7 @@ export default function AccountHome({ activeTab, setActiveTab }) {
         <div className="custom-container">
           <div className="row g-3">
             <div className="col-7">
-              <a href="earnings.html" className="provider-counter-box">
+              <a className="provider-counter-box">
                 <i className="iconsax counter-icon" data-icon="money-in"></i>
                 <div className="provider-counter-details">
                   <h6>Total Investment</h6>
@@ -191,7 +191,7 @@ export default function AccountHome({ activeTab, setActiveTab }) {
             </div>
 
             <div className="col-5">
-              <a href="booking.html" className="provider-counter-box">
+              <a className="provider-counter-box">
                 <i
                   className="iconsax counter-icon"
                   data-icon="receipt-minus-1"
@@ -345,7 +345,7 @@ export default function AccountHome({ activeTab, setActiveTab }) {
                       </button>
                     </h5>
                   </div>
-                  <a href="pending-booking-details.html">
+                  <a>
                     <h4 className="title-color fw-medium">
                       Income Limit Status
                     </h4>
