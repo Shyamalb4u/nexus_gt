@@ -130,7 +130,7 @@ export default function Header({ activeTab, setActiveTab }) {
               <a
                 className="setting-box"
                 onClick={() => {
-                  setActiveTab("home");
+                  setActiveTab("achievement");
                   const sidebar = document.getElementById("sidebar");
                   const bsOffcanvas =
                     window.bootstrap.Offcanvas.getInstance(sidebar);

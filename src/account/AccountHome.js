@@ -334,7 +334,7 @@ export default function AccountHome({ activeTab, setActiveTab }) {
                       {String(address).slice(0, 10)}
                       ......
                       <button
-                        class="btn btn-sm outline-btn w-20"
+                        className="btn btn-sm outline-btn w-20"
                         onClick={() =>
                           copyToClipboard(
                             `https://nexusglobaltrader.com/#/sign?r=${address}`

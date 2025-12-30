@@ -9,6 +9,7 @@ import Community from "./Community";
 import MyPackages from "./MyPackages";
 import IncomeStatement from "./IncomeStatement";
 import WithdrawalStatement from "./WithdrawalStatement";
+import Achievements from "./Achievements";
 export default function Wallet() {
   const navigate = useNavigate();
   const api_link = process.env.REACT_APP_API_URL;
@@ -127,7 +128,7 @@ export default function Wallet() {
       {activeTab === "communityBonus" && (
         <IncomeStatement apiStr="Level" heading="Community Bonus" />
       )}
-
+      {activeTab === "achievement" && <Achievements />}
       {activeTab === "withdrawalH" && <WithdrawalStatement />}
       <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </>
