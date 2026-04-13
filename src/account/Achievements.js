@@ -70,7 +70,7 @@ export default function Achievements() {
                       <div>
                         <h5 className="fw-medium title-color">{data.dates}</h5>
                         <h6 className="fw-normal content-color mt-1">
-                          Slab: {data.lvl} | Target :${data.target} (40:60)
+                          Slab: {data.lvl} | Target :${data.target} (60:40)
                         </h6>
                       </div>
                       <div>
@@ -106,7 +106,7 @@ export default function Achievements() {
                       <div>
                         <h5 className="fw-medium title-color">{data.dates}</h5>
                         <h6 className="fw-normal content-color mt-1">
-                          Target :${data.target} (50:50)
+                          Target :${data.target} (60:40)
                         </h6>
                       </div>
                       <div>
