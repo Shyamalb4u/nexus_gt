@@ -106,11 +106,11 @@ export default function Achievements() {
                       <div>
                         <h5 className="fw-medium title-color">{data.dates}</h5>
                         <h6 className="fw-normal content-color mt-1">
-                          Target :${data.target} (60:40)
+                          Target :${data.award} (60:40)
                         </h6>
                       </div>
                       <div>
-                        <h6 className="booking-id">{data.award}</h6>
+                        <h6 className="booking-id">{data.amount}</h6>
                         <h6 className="fw-normal content-color mt-1">
                           {data.status}
                         </h6>
