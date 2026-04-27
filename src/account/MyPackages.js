@@ -44,7 +44,10 @@ export default function MyPackages() {
       setIsLoading(false);
       return;
     }
-    if (parseInt(amount) % 25 !== 0) {
+    if (parseInt(amount) % 25 > 0) {
+      console.log(amount);
+      console.log(parseInt(amount));
+      console.log(parseInt(amount) % 25);
       setFlash("Amount 25 or multiple of 25");
       setIsError(true);
       setIsLoading(false);
@@ -64,57 +67,57 @@ export default function MyPackages() {
     }
     // 2. Transfer USDT and get txn
     var txHash = "";
-    try {
-      txHash = await sendUSDT(receive_address, amount.toString());
-    } catch (err) {
-      console.error(err);
-      setFlash("Transaction Error");
-      setIsError(true);
-      setIsLoading(false);
-      return;
-    }
-    // 3. Then insert to database
-    const signUpurl = api_link + "topup";
-    const data = {
-      publicKey: address,
-      amt: amount,
-      txn: txHash,
-      mode: "user",
-    };
-    const customHeaders = {
-      "Content-Type": "application/json",
-    };
-    try {
-      const result = await fetch(signUpurl, {
-        method: "POST",
-        headers: customHeaders,
-        body: JSON.stringify(data),
-      });
+    // try {
+    //   txHash = await sendUSDT(receive_address, amount.toString());
+    // } catch (err) {
+    //   console.error(err);
+    //   setFlash("Transaction Error");
+    //   setIsError(true);
+    //   setIsLoading(false);
+    //   return;
+    // }
+    // // 3. Then insert to database
+    // const signUpurl = api_link + "topup";
+    // const data = {
+    //   publicKey: address,
+    //   amt: amount,
+    //   txn: txHash,
+    //   mode: "user",
+    // };
+    // const customHeaders = {
+    //   "Content-Type": "application/json",
+    // };
+    // try {
+    //   const result = await fetch(signUpurl, {
+    //     method: "POST",
+    //     headers: customHeaders,
+    //     body: JSON.stringify(data),
+    //   });
 
-      if (!result.ok) {
-        setIsLoading(false);
-        throw new Error(`HTTP error! status: ${result.status}`);
-      }
-      const reData = await result.json();
-      const uid = reData.data[0].uid;
-      if (uid === "OK") {
-        setIsLoading(false);
-        fetchBalances(address);
-        getPackages();
-        setAmount(0);
-        setFlash("Subcription Successful");
-        setIsError(false);
-      } else {
-        setFlash("Sponsor Not Exists");
-        setIsError(true);
-        setIsLoading(false);
-        console.log("Sponsor Not Exists");
-      }
-      //console.log(reData);
-    } catch (error) {
-      console.log("Others Error!");
-      setIsLoading(false);
-    }
+    //   if (!result.ok) {
+    //     setIsLoading(false);
+    //     throw new Error(`HTTP error! status: ${result.status}`);
+    //   }
+    //   const reData = await result.json();
+    //   const uid = reData.data[0].uid;
+    //   if (uid === "OK") {
+    //     setIsLoading(false);
+    //     fetchBalances(address);
+    //     getPackages();
+    //     setAmount(0);
+    //     setFlash("Subcription Successful");
+    //     setIsError(false);
+    //   } else {
+    //     setFlash("Sponsor Not Exists");
+    //     setIsError(true);
+    //     setIsLoading(false);
+    //     console.log("Sponsor Not Exists");
+    //   }
+    //   //console.log(reData);
+    // } catch (error) {
+    //   console.log("Others Error!");
+    //   setIsLoading(false);
+    // }
   }
   return (
     <>
