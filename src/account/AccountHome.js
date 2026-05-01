@@ -11,6 +11,7 @@ export default function AccountHome({ activeTab, setActiveTab }) {
   const [flash, setFlash] = useState("");
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [amount, setAmount] = useState(0);
   useEffect(() => {
     if (window.init_iconsax) {
       window.init_iconsax();
@@ -34,17 +35,30 @@ export default function AccountHome({ activeTab, setActiveTab }) {
       return;
     }
     setIsLoading(true);
+    if (parseInt(amount) <= 0) {
+      setFlash("Enter Withdrawal Amount");
+      setIsError(true);
+      setIsLoading(false);
+      return;
+    }
+    if (parseInt(amount) % 10 > 0) {
+      setFlash("Amount 10 or multiple of 10");
+      setIsError(true);
+      setIsLoading(false);
+      return;
+    }
+
     const data = await fetchIncomeData(address);
     const balance = data[0].balance;
     if (parseFloat(balance) >= 10) {
-      const admCh = (balance * 10) / 100;
-      const net = balance - admCh;
+      const admCh = (amount * 10) / 100;
+      const net = amount - admCh;
       //console.log(admCh, net);
       //// First Insert into Database
       const withdrawalUrl = api_link + "withdrawal";
       const dataToSend = {
         publicKey: address,
-        amount: balance,
+        amount: amount,
         txn: "Pending Txn",
       };
       const customHeadersTo = {
@@ -150,16 +164,26 @@ export default function AccountHome({ activeTab, setActiveTab }) {
             />
             <div className="wallet-details">
               <div>
-                <h5>Account Balance.</h5>
+                <h5>Withdrawable</h5>
                 <h4>${incomeData ? <>{incomeData[0].balance}</> : "..."}</h4>
               </div>
               {!isLoading ? (
-                <a
-                  className="btn-sm theme-btn withdraw-btn theme-color"
-                  onClick={() => onWithdraw()}
-                >
-                  Withdraw
-                </a>
+                <>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="InputAmount"
+                    value={amount}
+                    style={{ width: "80px" }}
+                    onChange={(e) => setAmount(e.target.value)}
+                  />
+                  <a
+                    className="btn-sm theme-btn withdraw-btn theme-color"
+                    onClick={() => onWithdraw()}
+                  >
+                    Withdraw
+                  </a>
+                </>
               ) : (
                 <div className="text-center">
                   <img src="/loading.gif" alt="Loading" width={55} />
@@ -337,7 +361,7 @@ export default function AccountHome({ activeTab, setActiveTab }) {
                         className="btn btn-sm outline-btn w-20"
                         onClick={() =>
                           copyToClipboard(
-                            `https://nexusglobaltrader.com/#/sign?r=${address}`
+                            `https://nexusglobaltrader.com/#/sign?r=${address}`,
                           )
                         }
                       >
