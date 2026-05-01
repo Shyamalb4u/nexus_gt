@@ -50,7 +50,7 @@ export default function AccountHome({ activeTab, setActiveTab }) {
 
     const data = await fetchIncomeData(address);
     const balance = data[0].balance;
-    if (parseFloat(balance) >= 10) {
+    if (parseFloat(balance) >= amount) {
       const admCh = (amount * 10) / 100;
       const net = amount - admCh;
       //console.log(admCh, net);
@@ -148,7 +148,7 @@ export default function AccountHome({ activeTab, setActiveTab }) {
       ///////// End Of Database
     } else {
       setIsLoading(false);
-      setFlash("Minimum Withdrawal $10");
+      setFlash("Insufficient Balance");
       setIsError(true);
     }
   }
