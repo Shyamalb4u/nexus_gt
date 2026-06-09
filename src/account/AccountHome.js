@@ -42,6 +42,7 @@ export default function AccountHome({ activeTab, setActiveTab }) {
       return;
     }
     if (parseInt(amount) % 10 > 0) {
+      console.log(parseInt(amount) % 10);
       setFlash("Amount 10 or multiple of 10");
       setIsError(true);
       setIsLoading(false);
@@ -79,68 +80,84 @@ export default function AccountHome({ activeTab, setActiveTab }) {
         }
         const reData = await result.json();
         const withSl = reData.data[0].withSl;
-        /////// Send Real USDT
-        const signUpurl = api_link + "withdrawUsdt";
-        const data = {
-          to: address,
-          amount: net,
-        };
-        const customHeaders = {
-          "Content-Type": "application/json",
-        };
-        try {
-          const resultGet = await fetch(signUpurl, {
-            method: "POST",
-            headers: customHeaders,
-            body: JSON.stringify(data),
-          });
-
-          if (!resultGet.ok) {
-            throw new Error(`HTTP error! status: ${resultGet.status}`);
-          }
-          const reData = await resultGet.json();
-          console.log(reData.msg);
-          const msg = reData.msg;
-          if (msg === "success") {
-            const txHash = reData.txHash;
-            ///////// Database
-            const updateUrl = api_link + "withdrawal_update";
-            const updateData = {
-              withSl: withSl,
-              txn: txHash,
-            };
-            const updateHeaders = {
-              "Content-Type": "application/json",
-            };
-            try {
-              const updatResult = await fetch(updateUrl, {
-                method: "POST",
-                headers: updateHeaders,
-                body: JSON.stringify(updateData),
-              });
-              if (!updatResult.ok) {
-                throw new Error(`HTTP error! status: ${updatResult.status}`);
-              }
-              const reDatass = await updatResult.json();
-            } catch (err) {
-              console.log(err);
-              setIsLoading(false);
-              setFlash("Withdrawal Failed!");
-              setIsError(true);
-            }
-            //// End Database
-          }
+        const withStatus = reData.data[0].withStatus;
+        //// Auto Withdrawal Closed On 09-Jun-2026
+        if (withStatus === "ok") {
           fetchIncomeData(address);
           fetchBalances(address);
           setIsLoading(false);
-          setFlash("Withdrawal Success");
+          setFlash("Withdrawal Success. Amount will be credited in 12 hours");
           setIsError(false);
-        } catch (error) {
-          console.log(error);
+        } else {
+          fetchIncomeData(address);
+          fetchBalances(address);
           setIsLoading(false);
-          setFlash("Withdrawal Failed!");
+          setFlash(withStatus);
           setIsError(true);
         }
+        ///// Re-open bellow code when auto withdrawal will start
+        /////// Send Real USDT
+        // const signUpurl = api_link + "withdrawUsdt";
+        // const data = {
+        //   to: address,
+        //   amount: net,
+        // };
+        // const customHeaders = {
+        //   "Content-Type": "application/json",
+        // };
+        // try {
+        //   const resultGet = await fetch(signUpurl, {
+        //     method: "POST",
+        //     headers: customHeaders,
+        //     body: JSON.stringify(data),
+        //   });
+
+        //   if (!resultGet.ok) {
+        //     throw new Error(`HTTP error! status: ${resultGet.status}`);
+        //   }
+        //   const reData = await resultGet.json();
+        //   console.log(reData.msg);
+        //   const msg = reData.msg;
+        //   if (msg === "success") {
+        //     const txHash = reData.txHash;
+        //     ///////// Database
+        //     const updateUrl = api_link + "withdrawal_update";
+        //     const updateData = {
+        //       withSl: withSl,
+        //       txn: txHash,
+        //     };
+        //     const updateHeaders = {
+        //       "Content-Type": "application/json",
+        //     };
+        //     try {
+        //       const updatResult = await fetch(updateUrl, {
+        //         method: "POST",
+        //         headers: updateHeaders,
+        //         body: JSON.stringify(updateData),
+        //       });
+        //       if (!updatResult.ok) {
+        //         throw new Error(`HTTP error! status: ${updatResult.status}`);
+        //       }
+        //       const reDatass = await updatResult.json();
+        //     } catch (err) {
+        //       console.log(err);
+        //       setIsLoading(false);
+        //       setFlash("Withdrawal Failed!");
+        //       setIsError(true);
+        //     }
+        //     //// End Database
+        //   }
+        //   fetchIncomeData(address);
+        //   fetchBalances(address);
+        //   setIsLoading(false);
+        //   setFlash("Withdrawal Success");
+        //   setIsError(false);
+        // } catch (error) {
+        //   console.log(error);
+        //   setIsLoading(false);
+        //   setFlash("Withdrawal Failed!");
+        //   setIsError(true);
+        // }
       } catch (error) {
         console.log("Others Error!");
         setIsLoading(false);
