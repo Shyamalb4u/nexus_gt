@@ -86,7 +86,7 @@ export default function AccountHome({ activeTab, setActiveTab }) {
           fetchIncomeData(address);
           fetchBalances(address);
           setIsLoading(false);
-          setFlash("Withdrawal Success. Amount will be credited in 12 hours");
+          setFlash("Withdrawal Success. Amount will be credited in 24 hours");
           setIsError(false);
         } else {
           fetchIncomeData(address);
